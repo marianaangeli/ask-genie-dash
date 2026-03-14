@@ -1,7 +1,8 @@
 import KPICard from "./KPICard";
+import ChartCard from "./ChartCard";
 import {
   AreaChart, Area, LineChart, Line, BarChart, Bar,
-  XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Legend
+  XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer
 } from "recharts";
 
 const dataVolume = [
@@ -34,20 +35,20 @@ const qualityFailures = [
   { cycle: "C9", failures: 0 }, { cycle: "C10", failures: 3 },
 ];
 
+const TICK = { fontSize: 10, fill: "#6B6560" };
+const GRID = "rgba(0,0,0,0.05)";
+
 const TabDataOps = () => {
   return (
-    <div className="space-y-6">
-      {/* Status KPIs */}
-      <div className="grid grid-cols-4 gap-6">
-        <div className="bg-card border border-border rounded-md p-5 card-hover">
-          <p className="text-[0.8125rem] font-medium text-muted-foreground tracking-wide uppercase mb-2">
-            Última Execução
-          </p>
+    <div className="space-y-4">
+      <div className="grid grid-cols-4 gap-4">
+        <div className="bg-card rounded-[10px] p-[20px_22px]" style={{ border: "1px solid #E2E0DC" }}>
+          <p className="label-upper mb-2">Última Execução</p>
           <div className="flex items-center gap-2">
-            <span className="w-2.5 h-2.5 rounded-full bg-success animate-pulse-dot" />
-            <span className="text-[1.125rem] font-semibold text-foreground">Sucesso</span>
+            <span className="w-2.5 h-2.5 rounded-full animate-pulse-dot" style={{ background: "#166534" }} />
+            <span className="value-metric" style={{ fontSize: "18px" }}>Sucesso</span>
           </div>
-          <p className="text-[0.75rem] text-muted-foreground font-mono mt-1.5">
+          <p className="text-[11px] text-[#6B6560] font-mono mt-1.5">
             14/03/2026 — 06:45:22
           </p>
         </div>
@@ -56,43 +57,40 @@ const TabDataOps = () => {
         <KPICard title="Taxa de Sucesso" value="97,3%" trend="21/22 ciclos ok" trendPositive />
       </div>
 
-      {/* Area + Pipeline */}
-      <div className="grid grid-cols-2 gap-6">
-        <ChartCard title="Volume de Dados por Camada (GB)">
+      <div className="grid grid-cols-2 gap-4">
+        <ChartCard title="Volume de Dados por Camada (GB)" legend={[{ color: "#D3D1C7", label: "Bronze" }, { color: "#888780", label: "Silver" }, { color: "#D97706", label: "Gold" }]}>
           <ResponsiveContainer width="100%" height={280}>
             <AreaChart data={dataVolume}>
-              <CartesianGrid strokeDasharray="3 3" stroke="#E5E7EB" vertical={false} />
-              <XAxis dataKey="month" tick={{ fontSize: 12, fill: "#6B7280" }} axisLine={false} tickLine={false} />
-              <YAxis tick={{ fontSize: 11, fill: "#6B7280" }} axisLine={false} tickLine={false} />
+              <CartesianGrid stroke={GRID} vertical={false} />
+              <XAxis dataKey="month" tick={TICK} axisLine={false} tickLine={false} />
+              <YAxis tick={TICK} axisLine={false} tickLine={false} />
               <Tooltip />
-              <Legend />
-              <Area type="monotone" dataKey="bronze" name="Bronze" stackId="1" fill="rgba(45, 27, 20, 0.15)" stroke="rgba(45, 27, 20, 0.3)" strokeWidth={1} />
-              <Area type="monotone" dataKey="silver" name="Silver" stackId="1" fill="rgba(45, 27, 20, 0.35)" stroke="rgba(45, 27, 20, 0.6)" strokeWidth={1} />
-              <Area type="monotone" dataKey="gold" name="Gold" stackId="1" fill="#D97706" stroke="#D97706" strokeWidth={1.5} fillOpacity={0.8} />
+              <Area type="monotone" dataKey="bronze" name="Bronze" stackId="1" fill="#D3D1C7" stroke="#D3D1C7" strokeWidth={1} />
+              <Area type="monotone" dataKey="silver" name="Silver" stackId="1" fill="#888780" stroke="#888780" strokeWidth={1} />
+              <Area type="monotone" dataKey="gold" name="Gold" stackId="1" fill="#D97706" stroke="#D97706" strokeWidth={1.5} fillOpacity={0.9} />
             </AreaChart>
           </ResponsiveContainer>
         </ChartCard>
 
-        <ChartCard title="Tempo de Execução do Pipeline (min)">
+        <ChartCard title="Tempo de Execução do Pipeline (min)" legend={[{ color: "#2D1B14", label: "Tempo (min)" }]}>
           <ResponsiveContainer width="100%" height={280}>
             <LineChart data={pipelineExecution}>
-              <CartesianGrid strokeDasharray="3 3" stroke="#E5E7EB" vertical={false} />
-              <XAxis dataKey="day" tick={{ fontSize: 12, fill: "#6B7280" }} axisLine={false} tickLine={false} />
-              <YAxis tick={{ fontSize: 11, fill: "#6B7280" }} axisLine={false} tickLine={false} domain={[6, 16]} />
+              <CartesianGrid stroke={GRID} vertical={false} />
+              <XAxis dataKey="day" tick={TICK} axisLine={false} tickLine={false} />
+              <YAxis tick={TICK} axisLine={false} tickLine={false} domain={[6, 16]} />
               <Tooltip />
-              <Line dataKey="time" name="Tempo (min)" stroke="#2D1B14" strokeWidth={2} dot={{ fill: "#2D1B14", r: 4 }} />
+              <Line dataKey="time" name="Tempo (min)" stroke="#2D1B14" strokeWidth={1.5} dot={{ fill: "#2D1B14", r: 4 }} />
             </LineChart>
           </ResponsiveContainer>
         </ChartCard>
       </div>
 
-      {/* Quality Monitor */}
-      <ChartCard title="Monitor de Qualidade — Falhas por Ciclo de Integridade">
+      <ChartCard title="Monitor de Qualidade — Falhas por Ciclo" legend={[{ color: "#2D1B14", label: "Falhas" }]}>
         <ResponsiveContainer width="100%" height={220}>
           <BarChart data={qualityFailures}>
-            <CartesianGrid strokeDasharray="3 3" stroke="#E5E7EB" vertical={false} />
-            <XAxis dataKey="cycle" tick={{ fontSize: 12, fill: "#6B7280" }} axisLine={false} tickLine={false} />
-            <YAxis tick={{ fontSize: 11, fill: "#6B7280" }} axisLine={false} tickLine={false} allowDecimals={false} />
+            <CartesianGrid stroke={GRID} vertical={false} />
+            <XAxis dataKey="cycle" tick={TICK} axisLine={false} tickLine={false} />
+            <YAxis tick={TICK} axisLine={false} tickLine={false} allowDecimals={false} />
             <Tooltip />
             <Bar dataKey="failures" name="Falhas" fill="#2D1B14" radius={[3, 3, 0, 0]} barSize={20} />
           </BarChart>
@@ -101,12 +99,5 @@ const TabDataOps = () => {
     </div>
   );
 };
-
-const ChartCard = ({ title, children }: { title: string; children: React.ReactNode }) => (
-  <div className="bg-card border border-border rounded-md p-5 card-hover">
-    <h3 className="text-[0.875rem] font-semibold text-foreground mb-4 tracking-[-0.01em]">{title}</h3>
-    {children}
-  </div>
-);
 
 export default TabDataOps;

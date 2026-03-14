@@ -1,7 +1,8 @@
 import KPICard from "./KPICard";
+import ChartCard from "./ChartCard";
 import {
   ScatterChart, Scatter, XAxis, YAxis, CartesianGrid, Tooltip,
-  ResponsiveContainer, ComposedChart, Bar, Line, Legend, ZAxis
+  ResponsiveContainer, ComposedChart, Bar, Line, ZAxis
 } from "recharts";
 
 const scatterData = [
@@ -34,25 +35,26 @@ const ordersByRegion = [
   { region: "Africa", orders: 900, ticketMedio: 220 },
 ];
 
+const TICK = { fontSize: 10, fill: "#6B6560" };
+const GRID = "rgba(0,0,0,0.05)";
+
 const TabCommercial = () => {
   return (
-    <div className="space-y-6">
-      {/* Retention KPI */}
-      <div className="grid grid-cols-4 gap-6">
+    <div className="space-y-4">
+      <div className="grid grid-cols-4 gap-4">
         <KPICard title="Taxa de Retenção" value="68,4%" trend="+3.2pp vs anterior" trendPositive subtitle="Clientes com mais de 1 compra" />
         <KPICard title="Total de Pedidos" value="12.500" trend="+15.8% YoY" trendPositive />
         <KPICard title="Ticket Médio" value="R$ 278" trend="+6.4% YoY" trendPositive />
         <KPICard title="Produtos Ativos" value="295" subtitle="em 4 categorias" />
       </div>
 
-      {/* Scatter + Product Table */}
-      <div className="grid grid-cols-2 gap-6">
-        <ChartCard title="Desconto (%) × Receita por Produto">
+      <div className="grid grid-cols-2 gap-4">
+        <ChartCard title="Desconto (%) × Receita por Produto" legend={[{ color: "#2D1B14", label: "Produto" }]}>
           <ResponsiveContainer width="100%" height={280}>
             <ScatterChart>
-              <CartesianGrid strokeDasharray="3 3" stroke="#E5E7EB" />
-              <XAxis dataKey="discount" name="Desconto" unit="%" tick={{ fontSize: 11, fill: "#6B7280" }} axisLine={false} tickLine={false} />
-              <YAxis dataKey="revenue" name="Receita" unit="K" tick={{ fontSize: 11, fill: "#6B7280" }} axisLine={false} tickLine={false} />
+              <CartesianGrid strokeDasharray="3 3" stroke={GRID} />
+              <XAxis dataKey="discount" name="Desconto" unit="%" tick={TICK} axisLine={false} tickLine={false} />
+              <YAxis dataKey="revenue" name="Receita" unit="K" tick={TICK} axisLine={false} tickLine={false} />
               <ZAxis range={[60, 60]} />
               <Tooltip cursor={{ strokeDasharray: "3 3" }} formatter={(value: number, name: string) => [name === "Desconto" ? `${value}%` : `R$ ${value}K`, name]} />
               <Scatter data={scatterData} fill="#2D1B14" fillOpacity={0.7} />
@@ -61,25 +63,25 @@ const TabCommercial = () => {
         </ChartCard>
 
         <ChartCard title="Performance de Produto (Top 6)">
-          <table className="w-full text-[0.8125rem]">
+          <table className="w-full text-[12px]">
             <thead>
-              <tr className="border-b border-border">
-                <th className="text-left py-2 font-semibold text-muted-foreground">Produto</th>
-                <th className="text-right py-2 font-semibold text-muted-foreground">Receita</th>
-                <th className="text-left py-2 pl-4 font-semibold text-muted-foreground">Margem</th>
+              <tr style={{ borderBottom: "1px solid #E2E0DC" }}>
+                <th className="text-left py-2 label-upper">Produto</th>
+                <th className="text-right py-2 label-upper">Receita</th>
+                <th className="text-left py-2 pl-4 label-upper">Margem</th>
               </tr>
             </thead>
             <tbody className="font-mono">
               {productPerformance.map((p) => (
-                <tr key={p.product} className="border-b border-border hover:bg-background transition-colors">
+                <tr key={p.product} style={{ borderBottom: "1px solid #E2E0DC" }} className="hover:bg-background transition-colors">
                   <td className="py-2.5 text-foreground font-sans">{p.product}</td>
                   <td className="py-2.5 text-right">{p.revenue}</td>
                   <td className="py-2.5 pl-4">
                     <div className="flex items-center gap-2">
                       <div className="w-16 h-2 bg-muted rounded-sm overflow-hidden">
-                        <div className="h-full bg-success rounded-sm" style={{ width: `${p.marginWidth}%` }} />
+                        <div className="h-full rounded-sm" style={{ width: `${p.marginWidth}%`, background: "#166534" }} />
                       </div>
-                      <span className="text-[0.75rem]">{p.margin}</span>
+                      <span className="text-[11px]">{p.margin}</span>
                     </div>
                   </td>
                 </tr>
@@ -89,30 +91,21 @@ const TabCommercial = () => {
         </ChartCard>
       </div>
 
-      {/* Combo Chart */}
-      <ChartCard title="Pedidos × Ticket Médio por Região">
+      <ChartCard title="Pedidos × Ticket Médio por Região" legend={[{ color: "#F3F4F1", label: "Pedidos" }, { color: "#2D1B14", label: "Ticket Médio" }]}>
         <ResponsiveContainer width="100%" height={280}>
           <ComposedChart data={ordersByRegion}>
-            <CartesianGrid strokeDasharray="3 3" stroke="#E5E7EB" vertical={false} />
-            <XAxis dataKey="region" tick={{ fontSize: 12, fill: "#6B7280" }} axisLine={false} tickLine={false} />
-            <YAxis yAxisId="left" tick={{ fontSize: 11, fill: "#6B7280" }} axisLine={false} tickLine={false} />
-            <YAxis yAxisId="right" orientation="right" tick={{ fontSize: 11, fill: "#6B7280" }} axisLine={false} tickLine={false} tickFormatter={(v) => `R$${v}`} />
+            <CartesianGrid stroke={GRID} vertical={false} />
+            <XAxis dataKey="region" tick={TICK} axisLine={false} tickLine={false} />
+            <YAxis yAxisId="left" tick={TICK} axisLine={false} tickLine={false} />
+            <YAxis yAxisId="right" orientation="right" tick={TICK} axisLine={false} tickLine={false} tickFormatter={(v) => `R$${v}`} />
             <Tooltip />
-            <Legend />
             <Bar yAxisId="left" dataKey="orders" name="Pedidos" fill="#F3F4F1" stroke="#2D1B14" strokeWidth={1} radius={[3, 3, 0, 0]} barSize={36} />
-            <Line yAxisId="right" dataKey="ticketMedio" name="Ticket Médio" stroke="#2D1B14" strokeWidth={2} dot={{ fill: "#2D1B14", r: 4 }} />
+            <Line yAxisId="right" dataKey="ticketMedio" name="Ticket Médio" stroke="#2D1B14" strokeWidth={1.5} dot={{ fill: "#2D1B14", r: 4 }} />
           </ComposedChart>
         </ResponsiveContainer>
       </ChartCard>
     </div>
   );
 };
-
-const ChartCard = ({ title, children }: { title: string; children: React.ReactNode }) => (
-  <div className="bg-card border border-border rounded-md p-5 card-hover">
-    <h3 className="text-[0.875rem] font-semibold text-foreground mb-4 tracking-[-0.01em]">{title}</h3>
-    {children}
-  </div>
-);
 
 export default TabCommercial;
