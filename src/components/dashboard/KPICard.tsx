@@ -1,5 +1,3 @@
-import { cn } from "@/lib/utils";
-
 interface KPICardProps {
   title: string;
   value: string;
@@ -10,23 +8,16 @@ interface KPICardProps {
 
 const KPICard = ({ title, value, trend, trendPositive, subtitle }: KPICardProps) => {
   return (
-    <div className="bg-card border border-border rounded-md p-5 card-hover">
-      <p className="text-[0.8125rem] font-medium text-muted-foreground tracking-wide uppercase mb-1">
-        {title}
-      </p>
-      <p className="text-[2.25rem] font-semibold font-mono tracking-tight text-foreground leading-tight">
-        {value}
-      </p>
+    <div className="bg-card rounded-[10px] p-[20px_22px]" style={{ border: "1px solid #E2E0DC" }}>
+      <p className="label-upper mb-1.5">{title}</p>
+      <p className="value-metric">{value}</p>
       {trend && (
-        <p className={cn(
-          "text-[0.8125rem] font-mono mt-1",
-          trendPositive ? "text-success" : "text-destructive"
-        )}>
+        <p className={trendPositive ? "delta-positive mt-1.5" : "delta-negative mt-1.5"}>
           {trendPositive ? "▲" : "▼"} {trend}
         </p>
       )}
       {subtitle && (
-        <p className="text-[0.75rem] text-muted-foreground mt-1">{subtitle}</p>
+        <p className="text-[11px] text-[#6B6560] mt-1">{subtitle}</p>
       )}
     </div>
   );
