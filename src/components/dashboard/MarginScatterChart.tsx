@@ -97,8 +97,8 @@ const MarginScatterChart = () => {
     scales: {
       x: {
         type: "linear",
-        min: 0,
-        max: 35,
+        min: -1,
+        max: 37,
         ticks: {
           stepSize: 5,
           callback: (v: number) => `${v}%`,
