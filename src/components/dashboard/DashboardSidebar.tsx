@@ -12,7 +12,7 @@ const DashboardSidebar = () => {
     <aside className="w-[260px] min-h-screen bg-sidebar flex flex-col shrink-0">
       {/* Logo */}
       <div className="flex items-center justify-center" style={{ padding: "28px 0 24px", borderBottom: "1px solid rgba(255,255,255,0.08)" }}>
-        <img src={logo} alt="Adventure Works" className="w-28 h-28 rounded-full opacity-90" />
+        <img src={logo} alt="Adventure Works" className="w-28 h-28 rounded-full opacity-90 object-cover" />
       </div>
 
       {/* Filters Header */}
