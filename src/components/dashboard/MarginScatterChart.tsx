@@ -146,7 +146,7 @@ const MarginScatterChart = () => {
       </h3>
 
       {/* Custom Legend */}
-      <div className="flex items-center gap-4 mb-4 flex-wrap">
+      <div className="flex items-center flex-wrap gap-4 mb-4">
         {[
           { color: "#166534", label: "Bom (≥40%)" },
           { color: "#D97706", label: "Médio (30–39%)" },
