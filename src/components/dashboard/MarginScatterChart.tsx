@@ -37,11 +37,11 @@ const MarginScatterChart = () => {
       {
         label: "Produtos",
         data: scatterData.map((d) => ({ x: d.x, y: d.y })),
-        pointRadius: 6,
+        pointRadius: 7,
         pointBackgroundColor: scatterData.map((d) => COLORS[d.category]),
         pointBorderColor: "rgba(255,255,255,0.8)",
         pointBorderWidth: 2,
-        pointHoverRadius: 8,
+        pointHoverRadius: 9,
         pointHoverBorderColor: "#FAF5F0",
         pointHoverBorderWidth: 3,
       },
@@ -64,6 +64,9 @@ const MarginScatterChart = () => {
   const options: any = {
     responsive: true,
     maintainAspectRatio: false,
+    layout: {
+      padding: { top: 20, right: 20, bottom: 10, left: 10 },
+    },
     plugins: {
       legend: { display: false },
       tooltip: {
@@ -94,8 +97,8 @@ const MarginScatterChart = () => {
     scales: {
       x: {
         type: "linear",
-        min: 0,
-        max: 35,
+        min: -1,
+        max: 37,
         ticks: {
           stepSize: 5,
           callback: (v: number) => `${v}%`,
@@ -113,8 +116,8 @@ const MarginScatterChart = () => {
       },
       y: {
         type: "linear",
-        min: 15,
-        max: 65,
+        min: 13,
+        max: 68,
         ticks: {
           stepSize: 15,
           callback: (v: number) => `${v}%`,
@@ -143,7 +146,7 @@ const MarginScatterChart = () => {
       </h3>
 
       {/* Custom Legend */}
-      <div className="flex items-center gap-4 mb-4 flex-wrap">
+      <div className="flex items-center flex-wrap gap-4 mb-4">
         {[
           { color: "#166534", label: "Bom (≥40%)" },
           { color: "#D97706", label: "Médio (30–39%)" },
