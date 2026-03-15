@@ -5,6 +5,26 @@ import {
   ResponsiveContainer, ComposedChart, Bar, Line, XAxis, YAxis, CartesianGrid, Tooltip
 } from "recharts";
 
+const productPerformance = [
+  { product: "Mountain-200", revenue: "R$ 4.2M", margin: "46%", marginWidth: 92 },
+  { product: "Road-650", revenue: "R$ 3.8M", margin: "41%", marginWidth: 82 },
+  { product: "Touring-1000", revenue: "R$ 2.9M", margin: "39%", marginWidth: 78 },
+  { product: "Mountain-100", revenue: "R$ 2.5M", margin: "44%", marginWidth: 88 },
+  { product: "Road-450", revenue: "R$ 2.1M", margin: "36%", marginWidth: 72 },
+  { product: "HL Helmet", revenue: "R$ 1.8M", margin: "52%", marginWidth: 100 },
+];
+
+const ordersByRegion = [
+  { region: "N. America", orders: 4500, ticketMedio: 285 },
+  { region: "Europe", orders: 3200, ticketMedio: 310 },
+  { region: "Pacific", orders: 2100, ticketMedio: 270 },
+  { region: "S. America", orders: 1800, ticketMedio: 245 },
+  { region: "Africa", orders: 900, ticketMedio: 220 },
+];
+
+const TICK = { fontSize: 10, fill: "#6B6560" };
+const GRID = "rgba(0,0,0,0.05)";
+
 const TabCommercial = () => {
   return (
     <div className="space-y-4">
@@ -16,19 +36,7 @@ const TabCommercial = () => {
       </div>
 
       <div className="grid grid-cols-2 gap-4">
-        <ChartCard title="Desempenho de Margem vs. Desconto" legend={[{ color: "#6B6560", label: "Tendência" }]} extra={<MarginLegend />}>
-          <ResponsiveContainer width="100%" height={280}>
-            <ScatterChart margin={{ top: 10, right: 20, bottom: 5, left: 0 }}>
-              <CartesianGrid strokeDasharray="3 3" stroke={GRID} />
-              <XAxis dataKey="discount" name="Desconto" unit="%" tick={TICK} axisLine={false} tickLine={false} type="number" domain={[0, 35]} tickCount={8} />
-              <YAxis dataKey="margin" name="Margem" unit="%" tick={TICK} axisLine={false} tickLine={false} type="number" domain={[15, 60]} />
-              <ZAxis dataKey="revenue" range={[40, 400]} name="Receita" />
-              <Tooltip content={<CustomTooltip />} cursor={false} />
-              <Scatter data={bubbleData} shape={<CustomBubbleShape />} />
-              <Scatter data={trendlineData} fill="none" line={{ stroke: "#6B6560", strokeWidth: 1.5, strokeDasharray: "6 3" }} shape={() => null} legendType="none" />
-            </ScatterChart>
-          </ResponsiveContainer>
-        </ChartCard>
+        <MarginScatterChart />
 
         <ChartCard title="Performance de Produto (Top 6)">
           <table className="w-full text-[12px]">
