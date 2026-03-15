@@ -116,8 +116,8 @@ const MarginScatterChart = () => {
       },
       y: {
         type: "linear",
-        min: 15,
-        max: 65,
+        min: 13,
+        max: 68,
         ticks: {
           stepSize: 15,
           callback: (v: number) => `${v}%`,
