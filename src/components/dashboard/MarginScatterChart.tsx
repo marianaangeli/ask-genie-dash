@@ -32,11 +32,11 @@ const COLORS: Record<string, string> = {
 };
 
 const MarginScatterChart = () => {
-  const data = {
+  const data: any = {
     datasets: [
       {
         label: "Produtos",
-        data: scatterData,
+        data: scatterData.map((d) => ({ x: d.x, y: d.y })),
         pointRadius: 6,
         pointBackgroundColor: scatterData.map((d) => COLORS[d.category]),
         pointBorderColor: "rgba(255,255,255,0.8)",
@@ -47,7 +47,7 @@ const MarginScatterChart = () => {
       },
       {
         label: "Tendência",
-        type: "line" as const,
+        type: "line",
         data: [
           { x: 0, y: 55 },
           { x: 35, y: 18 },
