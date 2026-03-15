@@ -1,9 +1,16 @@
+import { useState } from "react";
 import KPICard from "./KPICard";
 import ChartCard from "./ChartCard";
 import {
   ScatterChart, Scatter, XAxis, YAxis, CartesianGrid, Tooltip,
-  ResponsiveContainer, ComposedChart, Bar, Line, ZAxis
+  ResponsiveContainer, ComposedChart, Bar, Line, ZAxis, Cell
 } from "recharts";
+
+const getMarginColor = (margin: number) => {
+  if (margin >= 40) return "#4D6B45"; // Verde Oliva — Bom
+  if (margin >= 30) return "#C4881D"; // Mostarda — Médio
+  return "#A0522D"; // Terracota — Crítico
+};
 
 const bubbleData = [
   { discount: 3, margin: 52, revenue: 310, product: "Socks" },
@@ -18,7 +25,6 @@ const bubbleData = [
   { discount: 30, margin: 22, revenue: 480, product: "Gloves" },
 ];
 
-// Linear regression for trendline
 const calcTrendline = (data: typeof bubbleData) => {
   const n = data.length;
   const sumX = data.reduce((s, d) => s + d.discount, 0);
@@ -36,12 +42,38 @@ const trendlineData = [
   { discount: 35, margin: slope * 35 + intercept },
 ];
 
+const CustomBubbleShape = (props: any) => {
+  const { cx, cy, payload, zValue } = props;
+  const size = Math.sqrt(zValue) * 0.8;
+  const color = getMarginColor(payload.margin);
+  const [hovered, setHovered] = useState(false);
+
+  return (
+    <circle
+      cx={cx}
+      cy={cy}
+      r={size}
+      fill={color}
+      fillOpacity={0.8}
+      stroke={hovered ? "#FAF5F0" : color}
+      strokeWidth={hovered ? 2.5 : 1}
+      style={{ cursor: "pointer", transition: "stroke-width 0.2s, stroke 0.2s" }}
+      onMouseEnter={() => setHovered(true)}
+      onMouseLeave={() => setHovered(false)}
+    />
+  );
+};
+
 const CustomTooltip = ({ active, payload }: any) => {
   if (!active || !payload?.length) return null;
   const d = payload[0].payload;
+  const color = getMarginColor(d.margin);
   return (
     <div className="bg-card border border-border rounded-lg px-3 py-2 text-[11px] shadow-sm">
-      <p className="font-medium text-foreground mb-1">{d.product}</p>
+      <div className="flex items-center gap-2 mb-1">
+        <span className="inline-block w-2 h-2 rounded-full" style={{ background: color }} />
+        <span className="font-medium text-foreground">{d.product}</span>
+      </div>
       <p className="text-secondary-foreground">Desconto: <span className="font-mono font-medium">{d.discount}%</span></p>
       <p className="text-secondary-foreground">Margem: <span className="font-mono font-medium">{d.margin}%</span></p>
       <p className="text-secondary-foreground">Receita: <span className="font-mono font-medium">R$ {d.revenue}K</span></p>
@@ -69,6 +101,24 @@ const ordersByRegion = [
 const TICK = { fontSize: 10, fill: "#6B6560" };
 const GRID = "rgba(0,0,0,0.05)";
 
+const MarginLegend = () => (
+  <div className="flex items-center gap-5 mt-0">
+    <span className="text-[11px] text-secondary-foreground italic">Cor = Faixa de Rentabilidade</span>
+    <div className="flex items-center gap-3">
+      {[
+        { color: "#4D6B45", label: "Bom (≥40%)" },
+        { color: "#C4881D", label: "Médio (30–39%)" },
+        { color: "#A0522D", label: "Crítico (<30%)" },
+      ].map((item) => (
+        <div key={item.label} className="flex items-center gap-1.5">
+          <span className="inline-block w-[9px] h-[9px] rounded-[2px]" style={{ background: item.color, opacity: 0.8 }} />
+          <span className="text-[11px] text-secondary-foreground">{item.label}</span>
+        </div>
+      ))}
+    </div>
+  </div>
+);
+
 const TabCommercial = () => {
   return (
     <div className="space-y-4">
@@ -80,7 +130,7 @@ const TabCommercial = () => {
       </div>
 
       <div className="grid grid-cols-2 gap-4">
-        <ChartCard title="Desconto (%) × Margem (%) — Bubble = Receita" legend={[{ color: "#2D1B14", label: "Produto" }, { color: "#6B6560", label: "Tendência" }]}>
+        <ChartCard title="Desempenho de Margem vs. Desconto" legend={[{ color: "#6B6560", label: "Tendência" }]} extra={<MarginLegend />}>
           <ResponsiveContainer width="100%" height={280}>
             <ScatterChart margin={{ top: 10, right: 20, bottom: 5, left: 0 }}>
               <CartesianGrid strokeDasharray="3 3" stroke={GRID} />
@@ -88,7 +138,7 @@ const TabCommercial = () => {
               <YAxis dataKey="margin" name="Margem" unit="%" tick={TICK} axisLine={false} tickLine={false} type="number" domain={[15, 60]} />
               <ZAxis dataKey="revenue" range={[40, 400]} name="Receita" />
               <Tooltip content={<CustomTooltip />} cursor={false} />
-              <Scatter data={bubbleData} fill="#2D1B14" fillOpacity={0.6} stroke="#2D1B14" strokeWidth={1} />
+              <Scatter data={bubbleData} shape={<CustomBubbleShape />} />
               <Scatter data={trendlineData} fill="none" line={{ stroke: "#6B6560", strokeWidth: 1.5, strokeDasharray: "6 3" }} shape={() => null} legendType="none" />
             </ScatterChart>
           </ResponsiveContainer>
