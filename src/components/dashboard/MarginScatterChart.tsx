@@ -37,7 +37,7 @@ const MarginScatterChart = () => {
       {
         label: "Produtos",
         data: scatterData.map((d) => ({ x: d.x, y: d.y })),
-        pointRadius: 6,
+        pointRadius: 7,
         pointBackgroundColor: scatterData.map((d) => COLORS[d.category]),
         pointBorderColor: "rgba(255,255,255,0.8)",
         pointBorderWidth: 2,
