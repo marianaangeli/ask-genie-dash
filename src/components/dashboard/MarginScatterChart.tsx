@@ -64,6 +64,9 @@ const MarginScatterChart = () => {
   const options: any = {
     responsive: true,
     maintainAspectRatio: false,
+    layout: {
+      padding: { top: 20, right: 20, bottom: 10, left: 10 },
+    },
     plugins: {
       legend: { display: false },
       tooltip: {
