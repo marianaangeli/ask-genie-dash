@@ -5,18 +5,49 @@ import {
   ResponsiveContainer, ComposedChart, Bar, Line, ZAxis
 } from "recharts";
 
-const scatterData = [
-  { discount: 5, revenue: 420, product: "Mountain Bike" },
-  { discount: 10, revenue: 580, product: "Road Bike" },
-  { discount: 15, revenue: 710, product: "Touring Bike" },
-  { discount: 20, revenue: 650, product: "Helmet" },
-  { discount: 8, revenue: 390, product: "Jersey" },
-  { discount: 25, revenue: 820, product: "Wheels" },
-  { discount: 12, revenue: 510, product: "Pedals" },
-  { discount: 30, revenue: 480, product: "Gloves" },
-  { discount: 3, revenue: 310, product: "Socks" },
-  { discount: 18, revenue: 690, product: "Frame" },
+const bubbleData = [
+  { discount: 3, margin: 52, revenue: 310, product: "Socks" },
+  { discount: 5, margin: 46, revenue: 420, product: "Mountain Bike" },
+  { discount: 8, margin: 44, revenue: 390, product: "Jersey" },
+  { discount: 10, margin: 41, revenue: 580, product: "Road Bike" },
+  { discount: 12, margin: 39, revenue: 510, product: "Pedals" },
+  { discount: 15, margin: 36, revenue: 710, product: "Touring Bike" },
+  { discount: 18, margin: 34, revenue: 690, product: "Frame" },
+  { discount: 20, margin: 31, revenue: 650, product: "Helmet" },
+  { discount: 25, margin: 28, revenue: 820, product: "Wheels" },
+  { discount: 30, margin: 22, revenue: 480, product: "Gloves" },
 ];
+
+// Linear regression for trendline
+const calcTrendline = (data: typeof bubbleData) => {
+  const n = data.length;
+  const sumX = data.reduce((s, d) => s + d.discount, 0);
+  const sumY = data.reduce((s, d) => s + d.margin, 0);
+  const sumXY = data.reduce((s, d) => s + d.discount * d.margin, 0);
+  const sumX2 = data.reduce((s, d) => s + d.discount * d.discount, 0);
+  const slope = (n * sumXY - sumX * sumY) / (n * sumX2 - sumX * sumX);
+  const intercept = (sumY - slope * sumX) / n;
+  return { slope, intercept };
+};
+
+const { slope, intercept } = calcTrendline(bubbleData);
+const trendlineData = [
+  { discount: 0, margin: intercept },
+  { discount: 35, margin: slope * 35 + intercept },
+];
+
+const CustomTooltip = ({ active, payload }: any) => {
+  if (!active || !payload?.length) return null;
+  const d = payload[0].payload;
+  return (
+    <div className="bg-card border border-border rounded-lg px-3 py-2 text-[11px] shadow-sm">
+      <p className="font-medium text-foreground mb-1">{d.product}</p>
+      <p className="text-secondary-foreground">Desconto: <span className="font-mono font-medium">{d.discount}%</span></p>
+      <p className="text-secondary-foreground">Margem: <span className="font-mono font-medium">{d.margin}%</span></p>
+      <p className="text-secondary-foreground">Receita: <span className="font-mono font-medium">R$ {d.revenue}K</span></p>
+    </div>
+  );
+};
 
 const productPerformance = [
   { product: "Mountain-200", revenue: "R$ 4.2M", margin: "46%", marginWidth: 92 },
@@ -49,15 +80,16 @@ const TabCommercial = () => {
       </div>
 
       <div className="grid grid-cols-2 gap-4">
-        <ChartCard title="Desconto (%) × Receita por Produto" legend={[{ color: "#2D1B14", label: "Produto" }]}>
+        <ChartCard title="Desconto (%) × Margem (%) — Bubble = Receita" legend={[{ color: "#2D1B14", label: "Produto" }, { color: "#6B6560", label: "Tendência" }]}>
           <ResponsiveContainer width="100%" height={280}>
-            <ScatterChart>
+            <ScatterChart margin={{ top: 10, right: 20, bottom: 5, left: 0 }}>
               <CartesianGrid strokeDasharray="3 3" stroke={GRID} />
-              <XAxis dataKey="discount" name="Desconto" unit="%" tick={TICK} axisLine={false} tickLine={false} />
-              <YAxis dataKey="revenue" name="Receita" unit="K" tick={TICK} axisLine={false} tickLine={false} />
-              <ZAxis range={[60, 60]} />
-              <Tooltip cursor={{ strokeDasharray: "3 3" }} formatter={(value: number, name: string) => [name === "Desconto" ? `${value}%` : `R$ ${value}K`, name]} />
-              <Scatter data={scatterData} fill="#2D1B14" fillOpacity={0.7} />
+              <XAxis dataKey="discount" name="Desconto" unit="%" tick={TICK} axisLine={false} tickLine={false} type="number" domain={[0, 35]} tickCount={8} />
+              <YAxis dataKey="margin" name="Margem" unit="%" tick={TICK} axisLine={false} tickLine={false} type="number" domain={[15, 60]} />
+              <ZAxis dataKey="revenue" range={[40, 400]} name="Receita" />
+              <Tooltip content={<CustomTooltip />} cursor={false} />
+              <Scatter data={bubbleData} fill="#2D1B14" fillOpacity={0.6} stroke="#2D1B14" strokeWidth={1} />
+              <Scatter data={trendlineData} fill="none" line={{ stroke: "#6B6560", strokeWidth: 1.5, strokeDasharray: "6 3" }} shape={() => null} legendType="none" />
             </ScatterChart>
           </ResponsiveContainer>
         </ChartCard>
