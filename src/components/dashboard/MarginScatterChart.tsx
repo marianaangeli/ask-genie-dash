@@ -41,7 +41,7 @@ const MarginScatterChart = () => {
         pointBackgroundColor: scatterData.map((d) => COLORS[d.category]),
         pointBorderColor: "rgba(255,255,255,0.8)",
         pointBorderWidth: 2,
-        pointHoverRadius: 8,
+        pointHoverRadius: 9,
         pointHoverBorderColor: "#FAF5F0",
         pointHoverBorderWidth: 3,
       },
