@@ -11,8 +11,8 @@ const DashboardSidebar = () => {
   return (
     <aside className="w-[260px] min-h-screen bg-sidebar flex flex-col shrink-0">
       {/* Logo */}
-      <div style={{ display: "flex", justifyContent: "center", alignItems: "center", padding: "28px 0 24px", borderBottom: "1px solid rgba(255,255,255,0.08)" }}>
-        <img src={logo} alt="Adventure Works" style={{ display: "block", margin: "0 auto", width: 80, height: 80, borderRadius: "50%", objectFit: "cover" }} />
+      <div style={{ width: "100%", display: "flex", justifyContent: "center", alignItems: "center", padding: "28px 0", borderBottom: "1px solid rgba(255,255,255,0.08)" }}>
+        <img src={logo} alt="Adventure Works" style={{ display: "block", width: 80, height: 80, borderRadius: "50%", objectFit: "cover" }} />
       </div>
 
       {/* Filters Header */}
