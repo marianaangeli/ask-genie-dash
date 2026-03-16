@@ -79,7 +79,3 @@ const MarginScatterChart = () => (
 );
 
 export default MarginScatterChart;
-  );
-};
-
-export default MarginScatterChart;
