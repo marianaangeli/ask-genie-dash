@@ -109,8 +109,38 @@ const TabCommercial2 = () => (
     <SectionDivider label="Análise por Pedido" />
 
     <div className="grid grid-cols-2 gap-4">
-      <KPICard title="Itens por Pedido" value="4,6" subtitle="média por transação" />
-      <KPICard title="Pedidos Online" value="27,6%" trend="+4.2pp vs anterior" trendPositive />
+      <ChartCard title="Pedidos por Mês">
+        <ResponsiveContainer width="100%" height={220}>
+          <BarChart data={pedidosMes}>
+            <CartesianGrid stroke={GRID} vertical={false} />
+            <XAxis dataKey="mes" tick={TICK} axisLine={false} tickLine={false} />
+            <YAxis tick={TICK} axisLine={false} tickLine={false} />
+            <Tooltip />
+            <Bar dataKey="pedidos" name="Pedidos" fill="#2D1B14" radius={[3, 3, 0, 0]} barSize={28} />
+          </BarChart>
+        </ResponsiveContainer>
+      </ChartCard>
+
+      <ChartCard title="Canal de Vendas">
+        <ResponsiveContainer width="100%" height={180}>
+          <PieChart>
+            <Pie data={canalVendas} dataKey="value" nameKey="name" cx="50%" cy="50%" outerRadius={70} strokeWidth={0}>
+              {canalVendas.map((entry) => (
+                <Cell key={entry.name} fill={entry.color} />
+              ))}
+            </Pie>
+            <Tooltip formatter={(v: number) => `${v}%`} />
+          </PieChart>
+        </ResponsiveContainer>
+        <div style={{ display: "flex", flexWrap: "wrap", gap: 12, marginTop: 8 }}>
+          {canalVendas.map((p) => (
+            <div key={p.name} className="flex items-center gap-1.5">
+              <span className="inline-block w-[9px] h-[9px] rounded-[2px]" style={{ background: p.color }} />
+              <span className="text-[11px] text-[#6B6560]">{p.name} {p.value}%</span>
+            </div>
+          ))}
+        </div>
+      </ChartCard>
     </div>
 
     <div className="grid grid-cols-2 gap-4">
