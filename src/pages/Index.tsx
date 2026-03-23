@@ -2,11 +2,13 @@ import { useState } from "react";
 import DashboardSidebar from "@/components/dashboard/DashboardSidebar";
 import TabExecutive from "@/components/dashboard/TabExecutive";
 import TabCommercial from "@/components/dashboard/TabCommercial";
+import TabCommercial2 from "@/components/dashboard/TabCommercial2";
 import TabDataOps from "@/components/dashboard/TabDataOps";
 
 const tabs = [
   { id: "executive", label: "Patrocínio Executivo" },
   { id: "commercial", label: "Diretoria Comercial" },
+  { id: "commercial2", label: "Diretoria Comercial II" },
   { id: "dataops", label: "Data Ops" },
 ] as const;
 
@@ -52,6 +54,7 @@ const Index = () => {
           <h1 className="sr-only">Adventure Works Heritage BI Dashboard</h1>
           {activeTab === "executive" && <TabExecutive />}
           {activeTab === "commercial" && <TabCommercial />}
+          {activeTab === "commercial2" && <TabCommercial2 />}
           {activeTab === "dataops" && <TabDataOps />}
         </main>
       </div>
