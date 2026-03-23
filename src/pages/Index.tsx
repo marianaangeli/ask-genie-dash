@@ -54,6 +54,7 @@ const Index = () => {
           <h1 className="sr-only">Adventure Works Heritage BI Dashboard</h1>
           {activeTab === "executive" && <TabExecutive />}
           {activeTab === "commercial" && <TabCommercial />}
+          {activeTab === "commercial2" && <TabCommercial2 />}
           {activeTab === "dataops" && <TabDataOps />}
         </main>
       </div>
