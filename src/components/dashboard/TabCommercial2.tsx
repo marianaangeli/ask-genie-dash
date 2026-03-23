@@ -108,7 +108,16 @@ const TabCommercial2 = () => (
     {/* ═══ BLOCO 1 — Análise por Pedido ═══ */}
     <SectionDivider label="Análise por Pedido" />
 
-    <div className="grid grid-cols-2 gap-4">
+    {/* Linha 1 — 4 KPIs */}
+    <div className="grid grid-cols-4 gap-4">
+      <KPICard title="Itens por Pedido" value="4,6" subtitle="média por transação" />
+      <KPICard title="Ticket Médio Online" value="R$ 312" trend="+8.2% vs loja física" trendPositive />
+      <KPICard title="Prazo Médio de Entrega" value="6,3 dias" trend="-0.8 dias vs anterior" trendPositive />
+      <KPICard title="Taxa de Cancelamento" value="2,1%" trend="-0.4pp vs anterior" trendPositive />
+    </div>
+
+    {/* Linha 2 — 3 gráficos */}
+    <div className="grid grid-cols-3 gap-4">
       <ChartCard title="Pedidos por Mês">
         <ResponsiveContainer width="100%" height={220}>
           <BarChart data={pedidosMes}>
@@ -141,10 +150,7 @@ const TabCommercial2 = () => (
           ))}
         </div>
       </ChartCard>
-    </div>
 
-    <div className="grid grid-cols-2 gap-4">
-      <KPICard title="Itens por Pedido" value="4,6" subtitle="média por transação" />
       <ChartCard title="Distribuição por Método de Pagamento">
         <ResponsiveContainer width="100%" height={180}>
           <PieChart>
@@ -167,6 +173,7 @@ const TabCommercial2 = () => (
       </ChartCard>
     </div>
 
+    {/* Linha 3 — Motivo de Compra */}
     <ChartCard title="Motivo de Compra">
       <ResponsiveContainer width="100%" height={200}>
         <BarChart data={motivoCompra} layout="vertical">
