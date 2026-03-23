@@ -144,18 +144,7 @@ const TabCommercial2 = () => (
     </div>
 
     <div className="grid grid-cols-2 gap-4">
-      <ChartCard title="Pedidos por Mês">
-        <ResponsiveContainer width="100%" height={220}>
-          <BarChart data={pedidosMes}>
-            <CartesianGrid stroke={GRID} vertical={false} />
-            <XAxis dataKey="mes" tick={TICK} axisLine={false} tickLine={false} />
-            <YAxis tick={TICK} axisLine={false} tickLine={false} />
-            <Tooltip />
-            <Bar dataKey="pedidos" name="Pedidos" fill="#2D1B14" radius={[3, 3, 0, 0]} barSize={28} />
-          </BarChart>
-        </ResponsiveContainer>
-      </ChartCard>
-
+      <KPICard title="Itens por Pedido" value="4,6" subtitle="média por transação" />
       <ChartCard title="Distribuição por Método de Pagamento">
         <ResponsiveContainer width="100%" height={180}>
           <PieChart>
