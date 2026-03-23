@@ -16,6 +16,13 @@ const pedidosMes = [
   { mes: "Out", pedidos: 1180 }, { mes: "Nov", pedidos: 1300 }, { mes: "Dez", pedidos: 1450 },
 ];
 
+const canalVendas = [
+  { name: "Online", value: 27.6, color: "#166534" },
+  { name: "Loja Física", value: 45.2, color: "#2D1B14" },
+  { name: "Revendedor", value: 18.9, color: "#D97706" },
+  { name: "Catálogo", value: 8.3, color: "#D3D1C7" },
+];
+
 const pagamento = [
   { name: "Cartão de Crédito", value: 48, color: "#2D1B14" },
   { name: "Boleto", value: 27, color: "#D97706" },
@@ -102,11 +109,6 @@ const TabCommercial2 = () => (
     <SectionDivider label="Análise por Pedido" />
 
     <div className="grid grid-cols-2 gap-4">
-      <KPICard title="Itens por Pedido" value="4,6" subtitle="média por transação" />
-      <KPICard title="Pedidos Online" value="27,6%" trend="+4.2pp vs anterior" trendPositive />
-    </div>
-
-    <div className="grid grid-cols-2 gap-4">
       <ChartCard title="Pedidos por Mês">
         <ResponsiveContainer width="100%" height={220}>
           <BarChart data={pedidosMes}>
@@ -119,6 +121,30 @@ const TabCommercial2 = () => (
         </ResponsiveContainer>
       </ChartCard>
 
+      <ChartCard title="Canal de Vendas">
+        <ResponsiveContainer width="100%" height={180}>
+          <PieChart>
+            <Pie data={canalVendas} dataKey="value" nameKey="name" cx="50%" cy="50%" outerRadius={70} strokeWidth={0}>
+              {canalVendas.map((entry) => (
+                <Cell key={entry.name} fill={entry.color} />
+              ))}
+            </Pie>
+            <Tooltip formatter={(v: number) => `${v}%`} />
+          </PieChart>
+        </ResponsiveContainer>
+        <div style={{ display: "flex", flexWrap: "wrap", gap: 12, marginTop: 8 }}>
+          {canalVendas.map((p) => (
+            <div key={p.name} className="flex items-center gap-1.5">
+              <span className="inline-block w-[9px] h-[9px] rounded-[2px]" style={{ background: p.color }} />
+              <span className="text-[11px] text-[#6B6560]">{p.name} {p.value}%</span>
+            </div>
+          ))}
+        </div>
+      </ChartCard>
+    </div>
+
+    <div className="grid grid-cols-2 gap-4">
+      <KPICard title="Itens por Pedido" value="4,6" subtitle="média por transação" />
       <ChartCard title="Distribuição por Método de Pagamento">
         <ResponsiveContainer width="100%" height={180}>
           <PieChart>
