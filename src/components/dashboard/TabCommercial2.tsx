@@ -16,6 +16,13 @@ const pedidosMes = [
   { mes: "Out", pedidos: 1180 }, { mes: "Nov", pedidos: 1300 }, { mes: "Dez", pedidos: 1450 },
 ];
 
+const canalVendas = [
+  { name: "Online", value: 27.6, color: "#166534" },
+  { name: "Loja Física", value: 45.2, color: "#2D1B14" },
+  { name: "Revendedor", value: 18.9, color: "#D97706" },
+  { name: "Catálogo", value: 8.3, color: "#D3D1C7" },
+];
+
 const pagamento = [
   { name: "Cartão de Crédito", value: 48, color: "#2D1B14" },
   { name: "Boleto", value: 27, color: "#D97706" },
