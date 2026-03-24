@@ -105,29 +105,17 @@ const DonutLegend = ({ data }: { data: { name: string; value: number; color: str
 const TabCommercial2 = () => {
   return (
     <div className="space-y-4">
-      {/* ═══ Pedidos × Ticket Médio (migrado da Diretoria Comercial) ═══ */}
-      <ChartCard title="Pedidos × Ticket Médio por Região" legend={[{ color: "#F3F4F1", label: "Pedidos" }, { color: "#2D1B14", label: "Ticket Médio" }]}>
-        <ResponsiveContainer width="100%" height={280}>
-          <ComposedChart data={pedidosTicketRegiao}>
-            <CartesianGrid stroke={GRID} vertical={false} />
-            <XAxis dataKey="region" tick={TICK} axisLine={false} tickLine={false} />
-            <YAxis yAxisId="left" tick={TICK} axisLine={false} tickLine={false} />
-            <YAxis yAxisId="right" orientation="right" tick={TICK} axisLine={false} tickLine={false} tickFormatter={(v) => `R$${v}`} />
-            <Tooltip />
-            <Bar yAxisId="left" dataKey="orders" name="Pedidos" fill="#F3F4F1" stroke="#2D1B14" strokeWidth={1} radius={[3, 3, 0, 0]} barSize={36} />
-            <Line yAxisId="right" dataKey="ticketMedio" name="Ticket Médio" stroke="#2D1B14" strokeWidth={1.5} dot={{ fill: "#2D1B14", r: 4 }} />
-          </ComposedChart>
-        </ResponsiveContainer>
-      </ChartCard>
-
-      {/* ═══ ANÁLISE DE CLIENTES ═══ */}
-      <SectionDivider label="Análise de Clientes" />
-
-      <div className="grid grid-cols-3 gap-4">
+      {/* ═══ Big Numbers no topo ═══ */}
+      <div className="grid grid-cols-5 gap-4">
         <KPICard title="Taxa de Retenção" value="47,7%" trend="+3.2pp vs anterior" trendPositive subtitle="Clientes recorrentes ÷ Total" />
         <KPICard title="Total de Clientes" value="19.119" />
         <KPICard title="Clientes Recorrentes" value="9.132" subtitle="mais de 1 compra" />
+        <KPICard title="Ticket Médio por Cliente" value="R$ 1.637" trend="+8.2% YoY" trendPositive />
+        <KPICard title="Periodicidade Média" value="94 dias" subtitle="entre compras recorrentes" />
       </div>
+
+      {/* ═══ Pedidos × Ticket Médio ═══ */}
+      <ChartCard title="Pedidos × Ticket Médio por Região" legend={[{ color: "#F3F4F1", label: "Pedidos" }, { color: "#2D1B14", label: "Ticket Médio" }]}>
 
       <ChartCard title="Segmentação de Clientes">
         <table className="w-full text-[12px]">
