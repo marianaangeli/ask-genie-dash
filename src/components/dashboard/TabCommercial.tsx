@@ -2,7 +2,7 @@ import KPICard from "./KPICard";
 import ChartCard from "./ChartCard";
 import MarginScatterChart from "./MarginScatterChart";
 import {
-  ResponsiveContainer, ComposedChart, Bar, Line, XAxis, YAxis, CartesianGrid, Tooltip
+  ResponsiveContainer, XAxis, YAxis, CartesianGrid, Tooltip
 } from "recharts";
 
 const productPerformance = [
