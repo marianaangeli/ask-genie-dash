@@ -67,19 +67,6 @@ const TabCommercial = () => {
         </ChartCard>
       </div>
 
-      <ChartCard title="Pedidos × Ticket Médio por Região" legend={[{ color: "#F3F4F1", label: "Pedidos" }, { color: "#2D1B14", label: "Ticket Médio" }]}>
-        <ResponsiveContainer width="100%" height={280}>
-          <ComposedChart data={ordersByRegion}>
-            <CartesianGrid stroke={GRID} vertical={false} />
-            <XAxis dataKey="region" tick={TICK} axisLine={false} tickLine={false} />
-            <YAxis yAxisId="left" tick={TICK} axisLine={false} tickLine={false} />
-            <YAxis yAxisId="right" orientation="right" tick={TICK} axisLine={false} tickLine={false} tickFormatter={(v) => `R$${v}`} />
-            <Tooltip />
-            <Bar yAxisId="left" dataKey="orders" name="Pedidos" fill="#F3F4F1" stroke="#2D1B14" strokeWidth={1} radius={[3, 3, 0, 0]} barSize={36} />
-            <Line yAxisId="right" dataKey="ticketMedio" name="Ticket Médio" stroke="#2D1B14" strokeWidth={1.5} dot={{ fill: "#2D1B14", r: 4 }} />
-          </ComposedChart>
-        </ResponsiveContainer>
-      </ChartCard>
     </div>
   );
 };

@@ -8,65 +8,61 @@ import {
 const GRID = "rgba(0,0,0,0.05)";
 const TICK = { fontSize: 10, fill: "#6B6560" };
 
-/* ── Bloco 1 ── */
-const pedidosPorAno = [
-  { ano: "2001", pedidos: 1379 },
-  { ano: "2002", pedidos: 3806 },
-  { ano: "2003", pedidos: 14182 },
-  { ano: "2004", pedidos: 12098 },
+/* ── Seção: Pedidos × Ticket (migrado) ── */
+const pedidosTicketRegiao = [
+  { region: "N. America", orders: 4500, ticketMedio: 285 },
+  { region: "Europe", orders: 3200, ticketMedio: 310 },
+  { region: "Pacific", orders: 2100, ticketMedio: 270 },
+  { region: "S. America", orders: 1800, ticketMedio: 245 },
+  { region: "Africa", orders: 900, ticketMedio: 220 },
 ];
 
-const pagamento = [
+/* ── Seção: Análise de Clientes ── */
+const clienteSegmentacao = [
+  { cliente: "Jon Yang", territory: "Australia", receita: "$13.490", ultimaCompra: "12/2003", status: "Alto Valor" },
+  { cliente: "Eugene Huang", territory: "Australia", receita: "$12.977", ultimaCompra: "11/2003", status: "Alto Valor" },
+  { cliente: "Ruben Torres", territory: "Australia", receita: "$12.716", ultimaCompra: "10/2003", status: "Alto Valor" },
+  { cliente: "Christy Zhu", territory: "Australia", receita: "$12.435", ultimaCompra: "12/2003", status: "Alto Valor" },
+  { cliente: "Elizabeth Johnson", territory: "Australia", receita: "$11.892", ultimaCompra: "09/2003", status: "Alto Valor" },
+  { cliente: "Julio Ruiz", territory: "Canada", receita: "$2.100", ultimaCompra: "03/2003", status: "Inativo" },
+  { cliente: "Janet Alvarez", territory: "Canada", receita: "$1.890", ultimaCompra: "02/2003", status: "Inativo" },
+  { cliente: "Marco Mehta", territory: "France", receita: "$1.650", ultimaCompra: "01/2003", status: "Inativo" },
+];
+
+/* ── Seção: Análise de Pedidos ── */
+const metodoPagamento = [
   { name: "Cartão de Crédito", value: 48, color: "#2D1B14" },
   { name: "Cheque", value: 30, color: "#D97706" },
   { name: "Transferência", value: 15, color: "#166534" },
   { name: "Outros", value: 7, color: "#D3D1C7" },
 ];
 
-const categorias = [
-  { name: "Bikes", pct: 63 },
-  { name: "Components", pct: 20 },
-  { name: "Clothing", pct: 9 },
-  { name: "Accessories", pct: 8 },
+const motivoCompra = [
+  { name: "Preço", value: 35, color: "#2D1B14" },
+  { name: "Qualidade", value: 28, color: "#166534" },
+  { name: "Promoção", value: 22, color: "#D97706" },
+  { name: "Marca", value: 15, color: "#888780" },
 ];
 
-/* ── Bloco 2 ── */
-const receitaTerritorio = [
-  { territory: "Southwest", revenue: 18.1 },
-  { territory: "Northwest", revenue: 13.4 },
-  { territory: "Canada", revenue: 14.6 },
-  { territory: "Australia", revenue: 11.9 },
-  { territory: "France", revenue: 11.3 },
-  { territory: "Central", revenue: 10.5 },
-  { territory: "Germany", revenue: 9.9 },
-  { territory: "Northeast", revenue: 8.3 },
-  { territory: "UK", revenue: 8.1 },
-  { territory: "Southeast", revenue: 5.2 },
+const itensPorCategoria = [
+  { name: "Bikes", qty: 5.2 },
+  { name: "Components", qty: 4.8 },
+  { name: "Clothing", qty: 3.6 },
+  { name: "Accessories", qty: 2.9 },
 ];
 
-const pedidosTicketTerritorio = [
-  { territory: "Southwest", pedidos: 9840, ticket: 1841 },
-  { territory: "Northwest", pedidos: 8110, ticket: 1652 },
-  { territory: "Central", pedidos: 4230, ticket: 2484 },
-  { territory: "Northeast", pedidos: 3720, ticket: 2231 },
-  { territory: "Southeast", pedidos: 2140, ticket: 2430 },
-  { territory: "Canada", pedidos: 6890, ticket: 2120 },
-  { territory: "France", pedidos: 5650, ticket: 2001 },
-  { territory: "Germany", pedidos: 4110, ticket: 2409 },
-  { territory: "Australia", pedidos: 5920, ticket: 2011 },
-  { territory: "UK", pedidos: 3850, ticket: 2104 },
-];
-
-/* ── Bloco 3 ── */
-const topClientes = [
-  { cliente: "Jon Yang", territory: "Australia", primeiro: "01/07/2001", total: "$13.490", status: "Alto Valor" },
-  { cliente: "Eugene Huang", territory: "Australia", primeiro: "01/07/2001", total: "$12.977", status: "Alto Valor" },
-  { cliente: "Ruben Torres", territory: "Australia", primeiro: "01/07/2001", total: "$12.716", status: "Alto Valor" },
-  { cliente: "Christy Zhu", territory: "Australia", primeiro: "01/07/2001", total: "$12.435", status: "Alto Valor" },
-  { cliente: "Elizabeth Johnson", territory: "Australia", primeiro: "01/07/2001", total: "$11.892", status: "Alto Valor" },
-  { cliente: "Julio Ruiz", territory: "Canada", primeiro: "01/07/2001", total: "$2.100", status: "Inativo" },
-  { cliente: "Janet Alvarez", territory: "Canada", primeiro: "01/07/2001", total: "$1.890", status: "Inativo" },
-  { cliente: "Marco Mehta", territory: "France", primeiro: "01/07/2001", total: "$1.650", status: "Inativo" },
+/* ── Seção: Participação de Mercado ── */
+const marketShare = [
+  { territory: "Southwest", share: 16.2 },
+  { territory: "Canada", share: 13.1 },
+  { territory: "Northwest", share: 12.0 },
+  { territory: "Australia", share: 10.7 },
+  { territory: "France", share: 10.1 },
+  { territory: "Central", share: 9.4 },
+  { territory: "Germany", share: 8.9 },
+  { territory: "Northeast", share: 7.4 },
+  { territory: "UK", share: 7.3 },
+  { territory: "Southeast", share: 4.9 },
 ];
 
 const SectionDivider = ({ label }: { label: string }) => (
@@ -95,139 +91,135 @@ const StatusBadge = ({ status }: { status: string }) => {
   );
 };
 
+const DonutLegend = ({ data }: { data: { name: string; value: number; color: string }[] }) => (
+  <div style={{ display: "flex", flexWrap: "wrap", gap: 12, marginTop: 8 }}>
+    {data.map((p) => (
+      <div key={p.name} className="flex items-center gap-1.5">
+        <span className="inline-block w-[9px] h-[9px] rounded-[2px]" style={{ background: p.color }} />
+        <span className="text-[11px] text-[#6B6560]">{p.name} {p.value}%</span>
+      </div>
+    ))}
+  </div>
+);
+
 const TabCommercial2 = () => {
   return (
     <div className="space-y-4">
-      {/* ═══ BLOCO 1 — Análise por Pedido ═══ */}
-      <SectionDivider label="Análise por Pedido" />
+      {/* ═══ Pedidos × Ticket Médio (migrado da Diretoria Comercial) ═══ */}
+      <ChartCard title="Pedidos × Ticket Médio por Região" legend={[{ color: "#F3F4F1", label: "Pedidos" }, { color: "#2D1B14", label: "Ticket Médio" }]}>
+        <ResponsiveContainer width="100%" height={280}>
+          <ComposedChart data={pedidosTicketRegiao}>
+            <CartesianGrid stroke={GRID} vertical={false} />
+            <XAxis dataKey="region" tick={TICK} axisLine={false} tickLine={false} />
+            <YAxis yAxisId="left" tick={TICK} axisLine={false} tickLine={false} />
+            <YAxis yAxisId="right" orientation="right" tick={TICK} axisLine={false} tickLine={false} tickFormatter={(v) => `R$${v}`} />
+            <Tooltip />
+            <Bar yAxisId="left" dataKey="orders" name="Pedidos" fill="#F3F4F1" stroke="#2D1B14" strokeWidth={1} radius={[3, 3, 0, 0]} barSize={36} />
+            <Line yAxisId="right" dataKey="ticketMedio" name="Ticket Médio" stroke="#2D1B14" strokeWidth={1.5} dot={{ fill: "#2D1B14", r: 4 }} />
+          </ComposedChart>
+        </ResponsiveContainer>
+      </ChartCard>
 
-      <div className="grid grid-cols-4 gap-4">
-        <KPICard title="Total de Pedidos" value="31.465" />
-        <KPICard title="Ticket Médio" value="R$ 1.637" />
-        <KPICard title="Itens por Pedido" value="4,6" />
-        <KPICard title="Pedidos Online" value="27,6%" />
+      {/* ═══ ANÁLISE DE CLIENTES ═══ */}
+      <SectionDivider label="Análise de Clientes" />
+
+      <div className="grid grid-cols-3 gap-4">
+        <KPICard title="Taxa de Retenção" value="47,7%" trend="+3.2pp vs anterior" trendPositive subtitle="Clientes recorrentes ÷ Total" />
+        <KPICard title="Total de Clientes" value="19.119" />
+        <KPICard title="Clientes Recorrentes" value="9.132" subtitle="mais de 1 compra" />
+      </div>
+
+      <ChartCard title="Segmentação de Clientes">
+        <table className="w-full text-[12px]">
+          <thead>
+            <tr style={{ borderBottom: "1px solid #E2E0DC" }}>
+              <th className="text-left py-2 label-upper">Cliente</th>
+              <th className="text-left py-2 label-upper">Território</th>
+              <th className="text-right py-2 label-upper">Receita</th>
+              <th className="text-left py-2 pl-4 label-upper">Última Compra</th>
+              <th className="text-left py-2 pl-4 label-upper">Status</th>
+            </tr>
+          </thead>
+          <tbody className="font-mono">
+            {clienteSegmentacao.map((c) => (
+              <tr key={c.cliente} style={{ borderBottom: "1px solid #E2E0DC" }} className="hover:bg-background transition-colors">
+                <td className="py-2.5 text-foreground font-sans">{c.cliente}</td>
+                <td className="py-2.5 font-sans">{c.territory}</td>
+                <td className="py-2.5 text-right">{c.receita}</td>
+                <td className="py-2.5 pl-4">{c.ultimaCompra}</td>
+                <td className="py-2.5 pl-4"><StatusBadge status={c.status} /></td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </ChartCard>
+
+      {/* ═══ ANÁLISE DE PEDIDOS ═══ */}
+      <SectionDivider label="Análise de Pedidos" />
+
+      <div className="grid grid-cols-2 gap-4">
+        <KPICard title="Ticket Médio por Cliente" value="R$ 1.637" trend="+8.2% YoY" trendPositive />
+        <KPICard title="Periodicidade Média" value="94 dias" subtitle="entre compras recorrentes" />
       </div>
 
       <div className="grid grid-cols-3 gap-4">
-        {/* Pedidos por Ano */}
-        <ChartCard title="Pedidos por Ano">
-          <ResponsiveContainer width="100%" height={220}>
-            <BarChart data={pedidosPorAno}>
-              <CartesianGrid stroke={GRID} vertical={false} />
-              <XAxis dataKey="ano" tick={TICK} axisLine={false} tickLine={false} />
-              <YAxis tick={TICK} axisLine={false} tickLine={false} />
-              <Tooltip />
-              <Bar dataKey="pedidos" name="Pedidos" fill="#2D1B14" radius={[3, 3, 0, 0]} barSize={32} />
-            </BarChart>
-          </ResponsiveContainer>
-        </ChartCard>
-
-        {/* Distribuição por Método de Pagamento */}
-        <ChartCard title="Distribuição por Método de Pagamento">
+        {/* Donut — Método de Pagamento */}
+        <ChartCard title="Método de Pagamento">
           <ResponsiveContainer width="100%" height={180}>
             <PieChart>
-              <Pie data={pagamento} dataKey="value" nameKey="name" cx="50%" cy="50%" outerRadius={70} strokeWidth={0}>
-                {pagamento.map((entry) => (
+              <Pie data={metodoPagamento} dataKey="value" nameKey="name" cx="50%" cy="50%" innerRadius={45} outerRadius={70} strokeWidth={0}>
+                {metodoPagamento.map((entry) => (
                   <Cell key={entry.name} fill={entry.color} />
                 ))}
               </Pie>
               <Tooltip formatter={(v: number) => `${v}%`} />
             </PieChart>
           </ResponsiveContainer>
-          <div style={{ display: "flex", flexWrap: "wrap", gap: 12, marginTop: 8 }}>
-            {pagamento.map((p) => (
-              <div key={p.name} className="flex items-center gap-1.5">
-                <span className="inline-block w-[9px] h-[9px] rounded-[2px]" style={{ background: p.color }} />
-                <span className="text-[11px] text-[#6B6560]">{p.name} {p.value}%</span>
-              </div>
-            ))}
-          </div>
+          <DonutLegend data={metodoPagamento} />
         </ChartCard>
 
-        {/* Top 5 Categorias */}
-        <ChartCard title="Top Categorias por Pedidos">
-          <ResponsiveContainer width="100%" height={220}>
-            <BarChart data={categorias} layout="vertical">
-              <CartesianGrid stroke={GRID} horizontal={false} />
-              <XAxis type="number" tick={TICK} axisLine={false} tickLine={false} tickFormatter={(v) => `${v}%`} />
-              <YAxis type="category" dataKey="name" tick={TICK} axisLine={false} tickLine={false} width={90} />
+        {/* Donut — Motivo de Compra */}
+        <ChartCard title="Motivo de Compra">
+          <ResponsiveContainer width="100%" height={180}>
+            <PieChart>
+              <Pie data={motivoCompra} dataKey="value" nameKey="name" cx="50%" cy="50%" innerRadius={45} outerRadius={70} strokeWidth={0}>
+                {motivoCompra.map((entry) => (
+                  <Cell key={entry.name} fill={entry.color} />
+                ))}
+              </Pie>
               <Tooltip formatter={(v: number) => `${v}%`} />
-              <Bar dataKey="pct" name="Pedidos %" fill="#D97706" radius={[0, 3, 3, 0]} barSize={20} />
-            </BarChart>
+            </PieChart>
           </ResponsiveContainer>
-        </ChartCard>
-      </div>
-
-      {/* ═══ BLOCO 2 — Análise por Região ═══ */}
-      <SectionDivider label="Análise por Região" />
-
-      <div className="grid grid-cols-2 gap-4">
-        {/* Receita por Território */}
-        <ChartCard title="Receita por Território">
-          <ResponsiveContainer width="100%" height={320}>
-            <BarChart data={receitaTerritorio} layout="vertical">
-              <CartesianGrid stroke={GRID} horizontal={false} />
-              <XAxis type="number" tick={TICK} axisLine={false} tickLine={false} tickFormatter={(v) => `$${v}M`} />
-              <YAxis type="category" dataKey="territory" tick={TICK} axisLine={false} tickLine={false} width={80} />
-              <Tooltip formatter={(v: number) => `$${v}M`} />
-              <Bar dataKey="revenue" name="Receita" fill="#166534" radius={[0, 3, 3, 0]} barSize={20} />
-            </BarChart>
-          </ResponsiveContainer>
+          <DonutLegend data={motivoCompra} />
         </ChartCard>
 
-        {/* Pedidos × Ticket Médio por Território */}
-        <ChartCard
-          title="Pedidos × Ticket Médio por Território"
-          legend={[
-            { color: "#D3D1C7", label: "Pedidos" },
-            { color: "#2D1B14", label: "Ticket Médio" },
-          ]}
-        >
-          <ResponsiveContainer width="100%" height={320}>
-            <ComposedChart data={pedidosTicketTerritorio}>
+        {/* Barras — Itens por Categoria */}
+        <ChartCard title="Média de Itens por Pedido">
+          <ResponsiveContainer width="100%" height={220}>
+            <BarChart data={itensPorCategoria}>
               <CartesianGrid stroke={GRID} vertical={false} />
-              <XAxis dataKey="territory" tick={TICK} axisLine={false} tickLine={false} angle={-30} textAnchor="end" height={50} />
-              <YAxis yAxisId="left" tick={TICK} axisLine={false} tickLine={false} />
-              <YAxis yAxisId="right" orientation="right" tick={TICK} axisLine={false} tickLine={false} tickFormatter={(v) => `$${v}`} />
+              <XAxis dataKey="name" tick={TICK} axisLine={false} tickLine={false} />
+              <YAxis tick={TICK} axisLine={false} tickLine={false} />
               <Tooltip />
-              <Bar yAxisId="left" dataKey="pedidos" name="Pedidos" fill="#D3D1C7" stroke="#2D1B14" strokeWidth={1} radius={[3, 3, 0, 0]} barSize={28} />
-              <Line yAxisId="right" dataKey="ticket" name="Ticket Médio" stroke="#2D1B14" strokeWidth={1.5} dot={{ fill: "#2D1B14", r: 4 }} />
-            </ComposedChart>
+              <Bar dataKey="qty" name="Itens/Pedido" fill="#2D1B14" radius={[3, 3, 0, 0]} barSize={32} />
+            </BarChart>
           </ResponsiveContainer>
         </ChartCard>
       </div>
 
-      {/* ═══ BLOCO 3 — Análise por Clientes ═══ */}
-      <SectionDivider label="Análise por Clientes" />
+      {/* ═══ PARTICIPAÇÃO DE MERCADO ═══ */}
+      <SectionDivider label="Participação de Mercado" />
 
-      <div className="grid grid-cols-2 gap-4">
-        <KPICard title="Total de Clientes" value="19.119" />
-        <KPICard title="Clientes com mais de 1 compra" value="9.132" />
-      </div>
-
-      <ChartCard title="Top Clientes por Receita Total">
-        <table className="w-full text-[12px]">
-          <thead>
-            <tr style={{ borderBottom: "1px solid #E2E0DC" }}>
-              <th className="text-left py-2 label-upper">Cliente</th>
-              <th className="text-left py-2 label-upper">Território</th>
-              <th className="text-left py-2 label-upper">Primeiro Pedido</th>
-              <th className="text-right py-2 label-upper">Total Gasto</th>
-              <th className="text-left py-2 pl-4 label-upper">Status</th>
-            </tr>
-          </thead>
-          <tbody className="font-mono">
-            {topClientes.map((c) => (
-              <tr key={c.cliente} style={{ borderBottom: "1px solid #E2E0DC" }} className="hover:bg-background transition-colors">
-                <td className="py-2.5 text-foreground font-sans">{c.cliente}</td>
-                <td className="py-2.5 font-sans">{c.territory}</td>
-                <td className="py-2.5">{c.primeiro}</td>
-                <td className="py-2.5 text-right">{c.total}</td>
-                <td className="py-2.5 pl-4"><StatusBadge status={c.status} /></td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
+      <ChartCard title="Market Share por Território">
+        <ResponsiveContainer width="100%" height={340}>
+          <BarChart data={marketShare} layout="vertical">
+            <CartesianGrid stroke={GRID} horizontal={false} />
+            <XAxis type="number" tick={TICK} axisLine={false} tickLine={false} tickFormatter={(v) => `${v}%`} />
+            <YAxis type="category" dataKey="territory" tick={TICK} axisLine={false} tickLine={false} width={80} />
+            <Tooltip formatter={(v: number) => `${v}%`} />
+            <Bar dataKey="share" name="Market Share" fill="#166534" radius={[0, 3, 3, 0]} barSize={20} />
+          </BarChart>
+        </ResponsiveContainer>
       </ChartCard>
     </div>
   );
