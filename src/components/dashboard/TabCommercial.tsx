@@ -2,7 +2,7 @@ import KPICard from "./KPICard";
 import ChartCard from "./ChartCard";
 import MarginScatterChart from "./MarginScatterChart";
 import {
-  ResponsiveContainer, ComposedChart, Bar, Line, XAxis, YAxis, CartesianGrid, Tooltip
+  ResponsiveContainer, XAxis, YAxis, CartesianGrid, Tooltip
 } from "recharts";
 
 const productPerformance = [
@@ -14,13 +14,6 @@ const productPerformance = [
   { product: "HL Helmet", revenue: "R$ 1.8M", margin: "52%", marginWidth: 100 },
 ];
 
-const ordersByRegion = [
-  { region: "N. America", orders: 4500, ticketMedio: 285 },
-  { region: "Europe", orders: 3200, ticketMedio: 310 },
-  { region: "Pacific", orders: 2100, ticketMedio: 270 },
-  { region: "S. America", orders: 1800, ticketMedio: 245 },
-  { region: "Africa", orders: 900, ticketMedio: 220 },
-];
 
 const TICK = { fontSize: 10, fill: "#6B6560" };
 const GRID = "rgba(0,0,0,0.05)";
@@ -67,19 +60,6 @@ const TabCommercial = () => {
         </ChartCard>
       </div>
 
-      <ChartCard title="Pedidos × Ticket Médio por Região" legend={[{ color: "#F3F4F1", label: "Pedidos" }, { color: "#2D1B14", label: "Ticket Médio" }]}>
-        <ResponsiveContainer width="100%" height={280}>
-          <ComposedChart data={ordersByRegion}>
-            <CartesianGrid stroke={GRID} vertical={false} />
-            <XAxis dataKey="region" tick={TICK} axisLine={false} tickLine={false} />
-            <YAxis yAxisId="left" tick={TICK} axisLine={false} tickLine={false} />
-            <YAxis yAxisId="right" orientation="right" tick={TICK} axisLine={false} tickLine={false} tickFormatter={(v) => `R$${v}`} />
-            <Tooltip />
-            <Bar yAxisId="left" dataKey="orders" name="Pedidos" fill="#F3F4F1" stroke="#2D1B14" strokeWidth={1} radius={[3, 3, 0, 0]} barSize={36} />
-            <Line yAxisId="right" dataKey="ticketMedio" name="Ticket Médio" stroke="#2D1B14" strokeWidth={1.5} dot={{ fill: "#2D1B14", r: 4 }} />
-          </ComposedChart>
-        </ResponsiveContainer>
-      </ChartCard>
     </div>
   );
 };
