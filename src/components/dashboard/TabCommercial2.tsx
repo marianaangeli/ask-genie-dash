@@ -8,7 +8,7 @@ import {
 const GRID = "rgba(0,0,0,0.05)";
 const TICK = { fontSize: 10, fill: "#6B6560" };
 
-/* ── Seção: Pedidos × Ticket (migrado) ── */
+/* ── Dados: Pedidos × Ticket ── */
 const pedidosTicketRegiao = [
   { region: "N. America", orders: 4500, ticketMedio: 285 },
   { region: "Europe", orders: 3200, ticketMedio: 310 },
@@ -17,7 +17,7 @@ const pedidosTicketRegiao = [
   { region: "Africa", orders: 900, ticketMedio: 220 },
 ];
 
-/* ── Seção: Análise de Clientes ── */
+/* ── Dados: Clientes ── */
 const clienteSegmentacao = [
   { cliente: "Jon Yang", territory: "Australia", receita: "$13.490", ultimaCompra: "12/2003", status: "Alto Valor" },
   { cliente: "Eugene Huang", territory: "Australia", receita: "$12.977", ultimaCompra: "11/2003", status: "Alto Valor" },
@@ -29,7 +29,7 @@ const clienteSegmentacao = [
   { cliente: "Marco Mehta", territory: "France", receita: "$1.650", ultimaCompra: "01/2003", status: "Inativo" },
 ];
 
-/* ── Seção: Análise de Pedidos ── */
+/* ── Dados: Pedidos ── */
 const metodoPagamento = [
   { name: "Cartão de Crédito", value: 48, color: "#2D1B14" },
   { name: "Cheque", value: 30, color: "#D97706" },
@@ -51,7 +51,7 @@ const itensPorCategoria = [
   { name: "Accessories", qty: 2.9 },
 ];
 
-/* ── Seção: Participação de Mercado ── */
+/* ── Dados: Market Share ── */
 const marketShare = [
   { territory: "Southwest", share: 16.2 },
   { territory: "Canada", share: 13.1 },
@@ -105,7 +105,7 @@ const DonutLegend = ({ data }: { data: { name: string; value: number; color: str
 const TabCommercial2 = () => {
   return (
     <div className="space-y-4">
-      {/* ═══ Big Numbers no topo ═══ */}
+      {/* ═══ 1. RESUMO DE PERFORMANCE (KPIs) ═══ */}
       <div className="grid grid-cols-5 gap-4">
         <KPICard title="Taxa de Retenção" value="47,7%" trend="+3.2pp vs anterior" trendPositive subtitle="Clientes recorrentes ÷ Total" />
         <KPICard title="Total de Clientes" value="19.119" />
@@ -114,23 +114,8 @@ const TabCommercial2 = () => {
         <KPICard title="Periodicidade Média" value="94 dias" subtitle="entre compras recorrentes" />
       </div>
 
-      {/* ═══ Pedidos × Ticket Médio ═══ */}
-      <ChartCard title="Pedidos × Ticket Médio por Região" legend={[{ color: "#F3F4F1", label: "Pedidos" }, { color: "#2D1B14", label: "Ticket Médio" }]}>
-        <ResponsiveContainer width="100%" height={280}>
-          <ComposedChart data={pedidosTicketRegiao}>
-            <CartesianGrid stroke={GRID} vertical={false} />
-            <XAxis dataKey="region" tick={TICK} axisLine={false} tickLine={false} />
-            <YAxis yAxisId="left" tick={TICK} axisLine={false} tickLine={false} />
-            <YAxis yAxisId="right" orientation="right" tick={TICK} axisLine={false} tickLine={false} tickFormatter={(v) => `R$${v}`} />
-            <Tooltip />
-            <Bar yAxisId="left" dataKey="orders" name="Pedidos" fill="#F3F4F1" stroke="#2D1B14" strokeWidth={1} radius={[3, 3, 0, 0]} barSize={36} />
-            <Line yAxisId="right" dataKey="ticketMedio" name="Ticket Médio" stroke="#2D1B14" strokeWidth={1.5} dot={{ fill: "#2D1B14", r: 4 }} />
-          </ComposedChart>
-        </ResponsiveContainer>
-      </ChartCard>
-
-      {/* ═══ ANÁLISE DE CLIENTES ═══ */}
-      <SectionDivider label="Análise de Clientes" />
+      {/* ═══ 2. PERFIL DO CONSUMIDOR (Quem?) ═══ */}
+      <SectionDivider label="Perfil do Consumidor" />
 
       <ChartCard title="Segmentação de Clientes">
         <table className="w-full text-[12px]">
@@ -157,11 +142,10 @@ const TabCommercial2 = () => {
         </table>
       </ChartCard>
 
-      {/* ═══ ANÁLISE DE PEDIDOS ═══ */}
-      <SectionDivider label="Análise de Pedidos" />
+      {/* ═══ 3. COMPORTAMENTO DE COMPRA (Como?) ═══ */}
+      <SectionDivider label="Comportamento de Compra" />
 
       <div className="grid grid-cols-3 gap-4">
-        {/* Donut — Método de Pagamento */}
         <ChartCard title="Método de Pagamento">
           <ResponsiveContainer width="100%" height={180}>
             <PieChart>
@@ -176,7 +160,6 @@ const TabCommercial2 = () => {
           <DonutLegend data={metodoPagamento} />
         </ChartCard>
 
-        {/* Donut — Motivo de Compra */}
         <ChartCard title="Motivo de Compra">
           <ResponsiveContainer width="100%" height={180}>
             <PieChart>
@@ -191,7 +174,6 @@ const TabCommercial2 = () => {
           <DonutLegend data={motivoCompra} />
         </ChartCard>
 
-        {/* Barras — Itens por Categoria */}
         <ChartCard title="Média de Itens por Pedido">
           <ResponsiveContainer width="100%" height={220}>
             <BarChart data={itensPorCategoria}>
@@ -205,8 +187,8 @@ const TabCommercial2 = () => {
         </ChartCard>
       </div>
 
-      {/* ═══ PARTICIPAÇÃO DE MERCADO ═══ */}
-      <SectionDivider label="Participação de Mercado" />
+      {/* ═══ 4. CONTEXTO GEOGRÁFICO (Onde?) ═══ */}
+      <SectionDivider label="Contexto Geográfico" />
 
       <ChartCard title="Market Share por Território">
         <ResponsiveContainer width="100%" height={340}>
@@ -217,6 +199,20 @@ const TabCommercial2 = () => {
             <Tooltip formatter={(v: number) => `${v}%`} />
             <Bar dataKey="share" name="Market Share" fill="#166534" radius={[0, 3, 3, 0]} barSize={20} />
           </BarChart>
+        </ResponsiveContainer>
+      </ChartCard>
+
+      <ChartCard title="Pedidos × Ticket Médio por Região" legend={[{ color: "#F3F4F1", label: "Pedidos" }, { color: "#2D1B14", label: "Ticket Médio" }]}>
+        <ResponsiveContainer width="100%" height={280}>
+          <ComposedChart data={pedidosTicketRegiao}>
+            <CartesianGrid stroke={GRID} vertical={false} />
+            <XAxis dataKey="region" tick={TICK} axisLine={false} tickLine={false} />
+            <YAxis yAxisId="left" tick={TICK} axisLine={false} tickLine={false} />
+            <YAxis yAxisId="right" orientation="right" tick={TICK} axisLine={false} tickLine={false} tickFormatter={(v) => `R$${v}`} />
+            <Tooltip />
+            <Bar yAxisId="left" dataKey="orders" name="Pedidos" fill="#F3F4F1" stroke="#2D1B14" strokeWidth={1} radius={[3, 3, 0, 0]} barSize={36} />
+            <Line yAxisId="right" dataKey="ticketMedio" name="Ticket Médio" stroke="#2D1B14" strokeWidth={1.5} dot={{ fill: "#2D1B14", r: 4 }} />
+          </ComposedChart>
         </ResponsiveContainer>
       </ChartCard>
     </div>
