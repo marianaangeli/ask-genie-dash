@@ -14,13 +14,6 @@ const productPerformance = [
   { product: "HL Helmet", revenue: "R$ 1.8M", margin: "52%", marginWidth: 100 },
 ];
 
-const ordersByRegion = [
-  { region: "N. America", orders: 4500, ticketMedio: 285 },
-  { region: "Europe", orders: 3200, ticketMedio: 310 },
-  { region: "Pacific", orders: 2100, ticketMedio: 270 },
-  { region: "S. America", orders: 1800, ticketMedio: 245 },
-  { region: "Africa", orders: 900, ticketMedio: 220 },
-];
 
 const TICK = { fontSize: 10, fill: "#6B6560" };
 const GRID = "rgba(0,0,0,0.05)";
