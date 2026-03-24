@@ -21,8 +21,7 @@ const GRID = "rgba(0,0,0,0.05)";
 const TabCommercial = () => {
   return (
     <div className="space-y-4">
-      <div className="grid grid-cols-4 gap-4">
-        <KPICard title="Taxa de Retenção" value="68,4%" trend="+3.2pp vs anterior" trendPositive subtitle="Clientes com mais de 1 compra" />
+      <div className="grid grid-cols-3 gap-4">
         <KPICard title="Total de Pedidos" value="12.500" trend="+15.8% YoY" trendPositive />
         <KPICard title="Ticket Médio" value="R$ 278" trend="+6.4% YoY" trendPositive />
         <KPICard title="Produtos Ativos" value="295" subtitle="em 4 categorias" />
