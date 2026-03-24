@@ -105,7 +105,16 @@ const DonutLegend = ({ data }: { data: { name: string; value: number; color: str
 const TabCommercial2 = () => {
   return (
     <div className="space-y-4">
-      {/* ═══ Pedidos × Ticket Médio (migrado da Diretoria Comercial) ═══ */}
+      {/* ═══ Big Numbers no topo ═══ */}
+      <div className="grid grid-cols-5 gap-4">
+        <KPICard title="Taxa de Retenção" value="47,7%" trend="+3.2pp vs anterior" trendPositive subtitle="Clientes recorrentes ÷ Total" />
+        <KPICard title="Total de Clientes" value="19.119" />
+        <KPICard title="Clientes Recorrentes" value="9.132" subtitle="mais de 1 compra" />
+        <KPICard title="Ticket Médio por Cliente" value="R$ 1.637" trend="+8.2% YoY" trendPositive />
+        <KPICard title="Periodicidade Média" value="94 dias" subtitle="entre compras recorrentes" />
+      </div>
+
+      {/* ═══ Pedidos × Ticket Médio ═══ */}
       <ChartCard title="Pedidos × Ticket Médio por Região" legend={[{ color: "#F3F4F1", label: "Pedidos" }, { color: "#2D1B14", label: "Ticket Médio" }]}>
         <ResponsiveContainer width="100%" height={280}>
           <ComposedChart data={pedidosTicketRegiao}>
@@ -122,12 +131,6 @@ const TabCommercial2 = () => {
 
       {/* ═══ ANÁLISE DE CLIENTES ═══ */}
       <SectionDivider label="Análise de Clientes" />
-
-      <div className="grid grid-cols-3 gap-4">
-        <KPICard title="Taxa de Retenção" value="47,7%" trend="+3.2pp vs anterior" trendPositive subtitle="Clientes recorrentes ÷ Total" />
-        <KPICard title="Total de Clientes" value="19.119" />
-        <KPICard title="Clientes Recorrentes" value="9.132" subtitle="mais de 1 compra" />
-      </div>
 
       <ChartCard title="Segmentação de Clientes">
         <table className="w-full text-[12px]">
@@ -156,11 +159,6 @@ const TabCommercial2 = () => {
 
       {/* ═══ ANÁLISE DE PEDIDOS ═══ */}
       <SectionDivider label="Análise de Pedidos" />
-
-      <div className="grid grid-cols-2 gap-4">
-        <KPICard title="Ticket Médio por Cliente" value="R$ 1.637" trend="+8.2% YoY" trendPositive />
-        <KPICard title="Periodicidade Média" value="94 dias" subtitle="entre compras recorrentes" />
-      </div>
 
       <div className="grid grid-cols-3 gap-4">
         {/* Donut — Método de Pagamento */}
